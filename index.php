@@ -64,7 +64,7 @@ $conn->close();
     <input type="submit" name="update_status_1" value="Update Status to 1">
     <input type="submit" name="update_status_0" value="Update Status to 0">
     <br><br>
-    <a href="http://elunecorp.000.pe/esp32_update.php" target="_blank">Go to esp32_update.php</a>
+    <a href="https://iotesp32-production.up.railway.app/esp32_update.php" target="_blank">Ir a la pagina de Update</a>
   </form>
 </body>
 </html>
