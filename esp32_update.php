@@ -13,7 +13,6 @@ if (!$conn) {
 
 if (isset($_POST['check_LED_status'])) {
     $led_id = $_POST['check_LED_status'];
-    
     $sql = "SELECT status, status2, status3 FROM LED_STATE WHERE id = '$led_id';";
     $result = mysqli_query($conn, $sql);
 
@@ -23,8 +22,7 @@ if (isset($_POST['check_LED_status'])) {
 
     $row = mysqli_fetch_assoc($result);
     if ($row) {
-        // Return the status values in JSON format
-        echo json_encode($row);
+        echo $row['status'] . ',' . $row['status2'] . ',' . $row['status3']; // Return the statuses separated by commas
     }
     mysqli_free_result($result);
 }
