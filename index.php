@@ -1,9 +1,12 @@
-<?php
+<?php  
+// INDEX.PHP V2
+
 $servername = "monorail.proxy.rlwy.net";
 $dBUsername = "root";
 $dBPassword = "qCIPRJQAIBRnMBkayOjXJPjoGdJopFcq";
 $dBName = "railway";
 $port = 39399;
+
 
 // Crear la conexión usando mysqli
 $conn = new mysqli($servername, $dBUsername, $dBPassword, $dBName, $port);
@@ -16,7 +19,6 @@ if ($conn->connect_error) {
 // Verificar si el formulario ha sido enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['update_status_1'])) {
-        // Actualizar el estado del LED en la base de datos a 1
         $update_sql = "UPDATE LED_STATE SET status = 1 WHERE id = 1";
         if ($conn->query($update_sql) === TRUE) {
             echo "Status updated to 1 successfully<br>";
@@ -24,12 +26,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Error updating status: " . $conn->error . "<br>";
         }
     } elseif (isset($_POST['update_status_0'])) {
-        // Actualizar el estado del LED en la base de datos a 0
         $update_sql = "UPDATE LED_STATE SET status = 0 WHERE id = 1";
         if ($conn->query($update_sql) === TRUE) {
             echo "Status updated to 0 successfully<br>";
         } else {
             echo "Error updating status: " . $conn->error . "<br>";
+        }
+    }
+    
+    if (isset($_POST['update_status2_1'])) {
+        $update_sql = "UPDATE LED_STATE SET status2 = 1 WHERE id = 1";
+        if ($conn->query($update_sql) === TRUE) {
+            echo "Status2 updated to 1 successfully<br>";
+        } else {
+            echo "Error updating status2: " . $conn->error . "<br>";
+        }
+    } elseif (isset($_POST['update_status2_0'])) {
+        $update_sql = "UPDATE LED_STATE SET status2 = 0 WHERE id = 1";
+        if ($conn->query($update_sql) === TRUE) {
+            echo "Status2 updated to 0 successfully<br>";
+        } else {
+            echo "Error updating status2: " . $conn->error . "<br>";
+        }
+    }
+    
+    if (isset($_POST['update_status3_1'])) {
+        $update_sql = "UPDATE LED_STATE SET status3 = 1 WHERE id = 1";
+        if ($conn->query($update_sql) === TRUE) {
+            echo "Status3 updated to 1 successfully <br>";
+        } else {
+            echo "Error updating status3: " . $conn->error . "<br>";
+        }
+    } elseif (isset($_POST['update_status3_0'])) {
+        $update_sql = "UPDATE LED_STATE SET status3 = 0 WHERE id = 1";
+        if ($conn->query($update_sql) === TRUE) {
+            echo "Status3 updated to 0 successfully<br>";
+        } else {
+            echo "Error updating status3: " . $conn->error . "<br>";
         }
     }
 }
@@ -41,7 +74,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // Mostrar los datos de cada fila
     while($row = $result->fetch_assoc()) {
-        echo "id: " . $row["id"] . " - status: " . $row["status"] . "<br>";
+        echo "id: " . $row["id"] . " - status: " . $row["status"] . " - status2: " . $row["status2"] . " - status3: " . $row["status3"] . "<br>";
     }
 } else {
     echo "0 results";
@@ -61,8 +94,18 @@ $conn->close();
 
 <body>
   <form method="post" action="">
+    <h3>Control LED 1</h3>
     <input type="submit" name="update_status_1" value="Update Status to 1">
     <input type="submit" name="update_status_0" value="Update Status to 0">
+    
+    <h3>Control LED 2</h3>
+    <input type="submit" name="update_status2_1" value="Update Status2 to 1">
+    <input type="submit" name="update_status2_0" value="Update Status2 to 0">
+    
+    <h3>Control LED 3</h3>
+    <input type="submit" name="update_status3_1" value="Update Status3 to 1">
+    <input type="submit" name="update_status3_0" value="Update Status3 to 0">
+    
     <br><br>
     <a href="https://iotesp32-production.up.railway.app/esp32_update.php" target="_blank">Ir a la pagina de Update</a>
   </form>
